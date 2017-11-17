@@ -22,6 +22,13 @@ exports.createWidgetProxy = ({ target }) => ({
       }
     },
     onProxyRes: (proxyRes, req, res) => {
+      if (
+        !proxyRes.headers ||
+        !proxyRes.headers[`content-type`] ||
+        !proxyRes.headers[`content-type`].includes(`text/html`)
+      ) {
+        return
+      }
       const end = res.end
       const writeHead = res.writeHead
       let writeHeadArgs
@@ -50,15 +57,7 @@ exports.createWidgetProxy = ({ target }) => ({
         })
 
       res.end = () => {
-        let output = body
-
-        if (
-          proxyRes.headers &&
-          proxyRes.headers[`content-type`] &&
-          proxyRes.headers[`content-type`].includes(`text/html`)
-        ) {
-          output = transformScriptTags(output)
-        }
+        const output = transformScriptTags(body)
 
         res.setHeader(`content-length`, output.length + 4) //@TODO: Figure out the necessity of the '+ 4'
         res.setHeader(`content-encoding`, ``)
