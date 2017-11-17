@@ -4,15 +4,25 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently 'http-server fake-proxy-site -p 8765' 'webpack-dev-server'",
+    "dev":
+      "concurrently 'http-server fake-proxy-site -p 8765' 'webpack-dev-server'",
     "precommit": "lint-staged"
   },
-  "dependencies": {},
+  "dependencies": {
+    "preact": "^8.2.6",
+    "preact-portal": "^1.1.2"
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "concurrently": "^3.5.0",
+    "eslint": "^4.11.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
     "http-server": "^0.10.0",
     "husky": "^0.14.3",
     "jsdom": "^11.3.0",
@@ -22,13 +32,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "lint-staged": {
-    "*.json": [
-      "prettier",
-      "git add"
-    ],
-    "*.js": [
-      "prettier",
-      "git add"
-    ]
+    "*.json": ["prettier", "git add"],
+    "*.js": ["prettier", "git add"]
   }
 }
